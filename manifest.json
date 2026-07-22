@@ -1,0 +1,75 @@
+{
+    "manifest_version": 3,
+    "name": "LOCANEX",
+    "version": "1.2",
+    "description": "LOCANEX",
+    "icons": {
+        "128": "assets/logo.png",
+        "512": "assets/logo.png"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "scripting",
+        "webRequest",
+        "storage",
+        "windows"
+    ],
+    "host_permissions": [
+        "https://www.geoguessr.com/",
+        "https://nominatim.openstreetmap.org/*",
+        "http://localhost/*",
+        "http://127.0.0.1/*"
+    ],
+    "web_accessible_resources": [
+        {
+            "world": "MAIN",
+            "resources": [
+                "xhr_inject.js"
+            ],
+            "matches": [
+                "https://www.geoguessr.com/*"
+            ]
+        },
+        {
+            "resources": [
+                "panel.html",
+                "panel.js",
+                "panel-render.js",
+                "settings.html",
+                "settings.js",
+                "leaflet.js",
+                "leaflet.css"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ],
+    "content_scripts": [
+        {
+            "world": "MAIN",
+            "matches": [
+                "https://www.geoguessr.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "all_frames": true,
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://www.geoguessr.com/*"
+            ],
+            "js": [
+                "bridge.js"
+            ],
+            "all_frames": true,
+            "run_at": "document_end"
+        }
+    ]
+}

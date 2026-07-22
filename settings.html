@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>LOCANEX Settings</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080b12;--surface:#0d1117;
+  --border:rgba(255,255,255,.06);--accent:#00d4aa;
+  --accent-dim:rgba(0,212,170,.12);
+  --text:#fff;--text-dim:#8b9cb8;--text-muted:#4a5a72;
+  --mono:'JetBrains Mono',monospace;--sans:'Inter',system-ui,sans-serif;
+}
+html,body{height:100%;background:var(--bg);font-family:var(--sans);color:var(--text)}
+body{padding:20px;display:flex;flex-direction:column;gap:16px}
+.header{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.header svg{color:var(--accent);flex-shrink:0}
+.header-title{font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.header-sub{font-size:10px;color:var(--text-muted);letter-spacing:.5px;margin-top:2px}
+.section{display:flex;flex-direction:column;gap:8px}
+.section-label{font-size:8px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);padding-bottom:6px;border-bottom:1px solid var(--border)}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px}
+.toggle-label{font-size:12px;font-weight:500}
+.toggle-desc{font-size:10px;color:var(--text-muted);margin-top:2px}
+.switch{position:relative;width:38px;height:22px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;inset:0;border-radius:22px;cursor:pointer;background:#1a2535;border:1px solid var(--border);transition:background .2s,border-color .2s}
+.slider:before{content:'';position:absolute;width:16px;height:16px;border-radius:50%;left:2px;top:2px;background:#4a5a72;transition:transform .2s,background .2s}
+input:checked+.slider{background:var(--accent-dim);border-color:rgba(0,212,170,.4)}
+input:checked+.slider:before{transform:translateX(16px);background:var(--accent)}
+.input-row{display:flex;flex-direction:column;gap:5px}
+.input-label{font-size:9px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-muted)}
+.input-field{font-family:var(--mono);font-size:11px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:9px 12px;color:var(--text-dim);outline:none;width:100%;transition:border-color .15s}
+.input-field:focus{border-color:rgba(0,212,170,.35);color:var(--text)}
+.status-row{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--surface);border:1px solid var(--border);border-radius:6px}
+.dot{width:7px;height:7px;border-radius:50%;background:#2a3a52;flex-shrink:0;transition:background .3s,box-shadow .3s}
+.dot.on{background:var(--accent);box-shadow:0 0 7px var(--accent);animation:pulse 2s ease-in-out infinite}
+.dot.off{background:#c0392b;box-shadow:0 0 6px rgba(192,57,43,.5)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.status-text{font-size:10px;font-family:var(--mono);color:var(--text-muted)}
+.btn-save{padding:11px;border-radius:8px;border:1px solid rgba(0,212,170,.25);cursor:pointer;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;background:var(--accent-dim);color:var(--accent);transition:background .15s}
+.btn-save:hover{background:rgba(0,212,170,.2)}
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#0d1117;border:1px solid rgba(0,212,170,.25);padding:7px 16px;border-radius:20px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="header">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+  </svg>
+  <div><div class="header-title">Settings</div><div class="header-sub">LOCANEX — Output configuration</div></div>
+</div>
+
+<div class="section">
+  <div class="section-label">Output targets</div>
+  <div class="toggle-row">
+    <div><div class="toggle-label">PC Popup</div><div class="toggle-desc">Open panel window on this computer</div></div>
+    <label class="switch"><input type="checkbox" id="togPc"><span class="slider"></span></label>
+  </div>
+  <div class="toggle-row">
+    <div><div class="toggle-label">Mobile Relay</div><div class="toggle-desc">Stream to phone browser in real-time</div></div>
+    <label class="switch"><input type="checkbox" id="togMobile"><span class="slider"></span></label>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Server</div>
+  <div class="input-row">
+    <div class="input-label">Server URL</div>
+    <input class="input-field" id="serverUrl" type="text" placeholder="ws://localhost:3000">
+  </div>
+  <div class="status-row">
+    <div class="dot" id="dot"></div>
+    <div class="status-text" id="statusText">—</div>
+  </div>
+</div>
+
+<div class="section" id="qrSection" style="display:none">
+  <div class="section-label">Phone connection</div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 0">
+    <img id="qrCode" src="" alt="QR" style="width:180px;height:180px;border-radius:10px;border:1px solid var(--border);background:var(--surface);display:none">
+    <div style="font-size:10px;color:var(--text-muted);text-align:center;letter-spacing:.3px;line-height:1.5">
+      <span id="qrLabel">Scan this QR with your phone</span>
+    </div>
+  </div>
+</div>
+
+<button class="btn-save" id="btnSave">Save settings</button>
+<div class="toast" id="toast"></div>
+
+<script src="settings.js"></script>
+</body>
+</html>

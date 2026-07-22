@@ -1,0 +1,16 @@
+{
+  "name": "locanex",
+  "version": "1.0.0",
+  "description": "Browser extension for GeoGuessr that displays location data in a dark minimal UI. Supports PC popup and mobile phone relay.",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  }
+}
