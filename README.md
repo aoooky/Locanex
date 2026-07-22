@@ -1,4 +1,4 @@
-# LOCANEX
+# LOCANEX - GeoGuessr cheat extension
 
 GeoGuessr cheat extension — sniffs game API responses and dumps coordinates, map, weather, and country intel into a dark overlay. Works on PC and mobile.
 
